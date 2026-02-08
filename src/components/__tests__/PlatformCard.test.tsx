@@ -19,14 +19,14 @@ describe('PlatformCard', () => {
   it('applies active styles when isActive is true', () => {
     render(<PlatformCard config={config} isActive={true} onClick={vi.fn()} />);
     const button = screen.getByText('LinkedIn');
-    expect(button.className).toContain('bg-blue-600');
+    expect(button.className).toContain('bg-edit-red');
     expect(button.className).toContain('text-white');
   });
 
   it('applies inactive styles when isActive is false', () => {
     render(<PlatformCard config={config} isActive={false} onClick={vi.fn()} />);
     const button = screen.getByText('LinkedIn');
-    expect(button.className).not.toContain('bg-blue-600');
+    expect(button.className).not.toContain('bg-edit-red');
   });
 
   it('calls onClick when clicked', () => {

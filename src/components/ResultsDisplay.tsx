@@ -26,11 +26,11 @@ export const ResultsDisplay: React.FC<ResultsDisplayProps> = ({
             <LoadingSkeleton />
           ) : result ? (
             <div className="space-y-16">
-              <div className="serif text-3xl leading-relaxed whitespace-pre-wrap">
+              <div className="serif text-3xl leading-relaxed whitespace-pre-wrap ink-dry ink-dry-1">
                 {result.content}
               </div>
 
-              <div className="flex flex-wrap gap-4 opacity-40">
+              <div className="flex flex-wrap gap-4 opacity-40 ink-dry ink-dry-2">
                 {result.hashtags.map((tag, idx) => (
                   <span key={idx} className="text-[10px] mono uppercase tracking-widest">
                     #{tag.replace('#', '')}
@@ -38,7 +38,7 @@ export const ResultsDisplay: React.FC<ResultsDisplayProps> = ({
                 ))}
               </div>
 
-              <div className="space-y-10 pt-8 border-t border-ink-black/5">
+              <div className="space-y-10 pt-8 border-t border-ink-black/5 ink-dry ink-dry-3">
                 <div className="text-[11px] opacity-20 leading-relaxed italic serif max-w-md flex gap-4">
                   <span className="mono uppercase text-[9px] not-italic font-bold tracking-[0.2em]">Logic</span>
                   {result.rationale}
@@ -47,9 +47,9 @@ export const ResultsDisplay: React.FC<ResultsDisplayProps> = ({
                   onClick={onCopy}
                   aria-label={copied ? 'Copied to clipboard' : 'Copy result to clipboard'}
                   className={`
-                    px-16 py-5 text-[10px] font-bold uppercase tracking-[0.3em] transition-all border
+                    px-16 py-5 text-[10px] font-bold uppercase tracking-[0.3em] transition-all border hover:scale-105
                     ${copied
-                      ? 'bg-blue-50 text-blue-600 border-blue-200'
+                      ? 'bg-edit-red-light text-edit-red border-edit-red/20'
                       : 'bg-transparent border-ink-black hover:bg-ink-black hover:text-white'}
                   `}
                 >
@@ -60,7 +60,7 @@ export const ResultsDisplay: React.FC<ResultsDisplayProps> = ({
           ) : null}
         </div>
 
-        <div className="md:col-span-5">
+        <div className="md:col-span-5 ink-dry ink-dry-4">
           {result && !isLoading && <ToneAnalysisDisplay analysis={result.analysis} />}
         </div>
       </div>

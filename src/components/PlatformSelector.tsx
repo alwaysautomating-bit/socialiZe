@@ -19,7 +19,7 @@ export const PlatformSelector: React.FC<PlatformSelectorProps> = ({
   canOptimize,
 }) => {
   return (
-    <section className="pt-8 flex flex-col items-center gap-12">
+    <section className="pt-8 flex flex-col items-center gap-12 ink-dry ink-dry-3">
       <div role="group" aria-label="Social media platforms" className="flex flex-wrap justify-center gap-px">
         {PLATFORMS.map((platform) => (
           <PlatformCard
@@ -40,7 +40,7 @@ export const PlatformSelector: React.FC<PlatformSelectorProps> = ({
             ? 'bg-transparent border border-ink-black/10 text-ink-black/30 cursor-not-allowed'
             : !canOptimize
               ? 'bg-ink-black/10 text-ink-black/30 cursor-not-allowed'
-              : 'bg-blue-600 text-white hover:bg-blue-700 shadow-lg shadow-blue-500/10'}
+              : 'bg-edit-red text-white hover:bg-edit-red/90 shadow-lg shadow-edit-red/10 active:scale-95'}
         `}
       >
         {isLoading ? 'Processing...' : 'Socialize'}

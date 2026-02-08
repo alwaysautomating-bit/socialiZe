@@ -15,7 +15,7 @@ export const ErrorMessage: React.FC<ErrorMessageProps> = ({ error, onRetry }) =>
       {error.retryable && onRetry && (
         <button
           onClick={onRetry}
-          className="text-[9px] mono uppercase tracking-widest text-blue-600 hover:text-blue-800 transition-colors"
+          className="text-[9px] mono uppercase tracking-widest text-edit-red hover:text-edit-red/80 transition-colors"
         >
           Retry
         </button>

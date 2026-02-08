@@ -22,7 +22,7 @@ export const ContentInput: React.FC<ContentInputProps> = ({
   onRetry,
 }) => {
   return (
-    <section className="space-y-4">
+    <section className="space-y-4 ink-dry ink-dry-2">
       <div className="relative group">
         <textarea
           aria-label="Content to optimize"

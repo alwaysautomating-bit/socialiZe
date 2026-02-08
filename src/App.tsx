@@ -17,8 +17,10 @@ const App: React.FC = () => {
     }
   };
 
+  const isAwake = state.selectedPlatform !== null;
+
   return (
-    <Layout>
+    <Layout isAwake={isAwake}>
       <div className="flex flex-col space-y-12">
         <ContentInput
           inputText={state.inputText}

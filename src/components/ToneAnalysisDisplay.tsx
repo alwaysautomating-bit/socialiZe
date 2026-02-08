@@ -15,8 +15,8 @@ export const ToneAnalysisDisplay: React.FC<ToneAnalysisDisplayProps> = ({ analys
           <span className="text-[10px] mono font-bold">{analysis.score}%</span>
         </div>
         <div className="w-full h-[1px] bg-[#E5E4D3]">
-          <div 
-            className="h-full bg-ink-black transition-all duration-1000" 
+          <div
+            className="h-full bg-edit-red transition-all duration-1000"
             style={{ width: `${analysis.score}%` }}
           />
         </div>

@@ -17,13 +17,39 @@ body {
   font-family: 'JetBrains Mono', monospace;
 }
 
+/* Ink-dry entrance animation */
+@media (prefers-reduced-motion: no-preference) {
+  @keyframes ink-dry {
+    from {
+      opacity: 0;
+      filter: blur(2px);
+      transform: translateY(4px);
+    }
+    to {
+      opacity: 1;
+      filter: blur(0);
+      transform: translateY(0);
+    }
+  }
+
+  .ink-dry {
+    opacity: 0;
+    animation: ink-dry 600ms ease-out forwards;
+  }
+
+  .ink-dry-1 { animation-delay: 0ms; }
+  .ink-dry-2 { animation-delay: 150ms; }
+  .ink-dry-3 { animation-delay: 300ms; }
+  .ink-dry-4 { animation-delay: 450ms; }
+}
+
 /* Focus styles: visible for keyboard, hidden for mouse */
 *:focus:not(:focus-visible) {
   outline: none;
 }
 
 *:focus-visible {
-  outline: 2px solid #2563EB;
+  outline: 2px solid #C0392B;
   outline-offset: 2px;
 }
 
