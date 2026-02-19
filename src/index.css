@@ -89,39 +89,3 @@ body {
   background-attachment: local;
 }
 
-/* ── Page corner curls (desktop navigation affordance) ─── */
-.corner-curl-next {
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  width: 32px;
-  height: 32px;
-  background: linear-gradient(to top left, #d5ceb1 50%, transparent 50%);
-  cursor: pointer;
-  transition: width 0.22s ease, height 0.22s ease, box-shadow 0.22s ease;
-  z-index: 30;
-}
-
-.corner-curl-next:hover {
-  width: 56px;
-  height: 56px;
-  box-shadow: -3px -3px 10px rgba(0, 0, 0, 0.13);
-}
-
-.corner-curl-prev {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 32px;
-  height: 32px;
-  background: linear-gradient(to top right, #d5ceb1 50%, transparent 50%);
-  cursor: pointer;
-  transition: width 0.22s ease, height 0.22s ease, box-shadow 0.22s ease;
-  z-index: 30;
-}
-
-.corner-curl-prev:hover {
-  width: 56px;
-  height: 56px;
-  box-shadow: 3px -3px 10px rgba(0, 0, 0, 0.13);
-}
