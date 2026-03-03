@@ -7,6 +7,7 @@ import { ErrorCode } from '../services/errors';
 
 vi.mock('../services/gemini', () => ({
   optimizeContent: vi.fn(),
+  optimizeAllPlatforms: vi.fn(),
 }));
 
 describe('App integration', () => {
@@ -19,7 +20,8 @@ describe('App integration', () => {
 
     expect(screen.getByPlaceholderText("What's the thought?")).toBeInTheDocument();
     expect(screen.getByText('LinkedIn')).toBeInTheDocument();
-    expect(screen.getByText('Socialize')).toBeInTheDocument();
+    expect(screen.getByText('Select a Platform')).toBeInTheDocument();
+    expect(screen.getByText('socialiZe Everything')).toBeInTheDocument();
     expect(screen.getByText('Voice:')).toBeInTheDocument();
   });
 
@@ -46,7 +48,7 @@ describe('App integration', () => {
 
     await user.type(screen.getByPlaceholderText("What's the thought?"), 'My raw thought');
     await user.click(screen.getByText('LinkedIn'));
-    await user.click(screen.getByText('Socialize'));
+    await user.click(screen.getByText('socialiZe → LinkedIn'));
 
     await waitFor(() => {
       expect(screen.getByText('Professional thought leadership post.')).toBeInTheDocument();
@@ -64,8 +66,8 @@ describe('App integration', () => {
     // Select platform but don't type text
     await user.click(screen.getByText('Instagram'));
 
-    // Socialize button should be disabled
-    expect(screen.getByText('Socialize')).toBeDisabled();
+    // Single-platform button should be disabled
+    expect(screen.getByText('socialiZe → Instagram')).toBeDisabled();
   });
 
   it('validation: button is disabled when no platform is selected', async () => {
@@ -75,8 +77,8 @@ describe('App integration', () => {
     // Type text but don't select platform
     await user.type(screen.getByPlaceholderText("What's the thought?"), 'Some text');
 
-    // Socialize button should be disabled
-    expect(screen.getByText('Socialize')).toBeDisabled();
+    // Single-platform button should be disabled (shows "Select a Platform")
+    expect(screen.getByText('Select a Platform')).toBeDisabled();
   });
 
   it('API error: shows error with retry option', async () => {
@@ -93,7 +95,7 @@ describe('App integration', () => {
 
     await user.type(screen.getByPlaceholderText("What's the thought?"), 'Test content');
     await user.click(screen.getByText('X (Twitter)'));
-    await user.click(screen.getByText('Socialize'));
+    await user.click(screen.getByText('socialiZe → X (Twitter)'));
 
     await waitFor(() => {
       expect(screen.getByText('fetch failed')).toBeInTheDocument();

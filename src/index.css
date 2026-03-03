@@ -4,7 +4,7 @@
 
 body {
   font-family: 'Inter', sans-serif;
-  background-color: #FDFCF0;
+  background-color: #F5F1E8;
   color: #1A1A1A;
   -webkit-font-smoothing: antialiased;
 }
@@ -63,29 +63,5 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #E5E4D3;
+  background: #D0CBB8;
 }
-
-/* ── Notebook paper ─────────────────────────────────────── */
-.notebook-paper {
-  background-color: #FDFCF0;
-  background-image:
-    /* Red margin line */
-    linear-gradient(
-      to right,
-      transparent 59px,
-      rgba(192, 57, 43, 0.22) 59px,
-      rgba(192, 57, 43, 0.22) 61px,
-      transparent 61px
-    ),
-    /* Horizontal blue rule lines */
-    repeating-linear-gradient(
-      to bottom,
-      transparent,
-      transparent 31px,
-      rgba(168, 196, 208, 0.5) 31px,
-      rgba(168, 196, 208, 0.5) 32px
-    );
-  background-attachment: local;
-}
-

@@ -14,10 +14,10 @@ export const PlatformCard: React.FC<PlatformCardProps> = ({ config, isActive, on
       aria-pressed={isActive}
       aria-label={`Select ${config.id} platform`}
       className={`
-        px-6 py-2 text-[10px] font-bold uppercase tracking-[0.2em] transition-all duration-300
+        px-5 py-3 text-[10px] font-black uppercase tracking-[0.2em] transition-all duration-200 border-2
         ${isActive
-          ? 'bg-edit-red text-white shadow-sm scale-105'
-          : 'text-ink-black/50 hover:text-ink-black/80'}
+          ? 'bg-edit-red border-edit-red text-white shadow-sm'
+          : 'bg-transparent border-ink-black/20 text-ink-black/50 hover:border-ink-black hover:text-ink-black hover:bg-ink-black/5'}
       `}
     >
       {config.id}

@@ -8,8 +8,11 @@ describe('PlatformSelector', () => {
     selectedPlatform: null as Platform | null,
     onPlatformSelect: vi.fn(),
     onOptimize: vi.fn(),
+    onOptimizeAll: vi.fn(),
     isLoading: false,
+    isLoadingAll: false,
     canOptimize: false,
+    canOptimizeAll: false,
   };
 
   it('renders all platform buttons', () => {
@@ -31,17 +34,17 @@ describe('PlatformSelector', () => {
     expect(onPlatformSelect).toHaveBeenCalledWith(Platform.LINKEDIN);
   });
 
-  it('renders the Socialize button', () => {
+  it('renders the socialiZe Everything button', () => {
     render(<PlatformSelector {...defaultProps} />);
-    expect(screen.getByText('Socialize')).toBeInTheDocument();
+    expect(screen.getByText('socialiZe Everything')).toBeInTheDocument();
   });
 
-  it('disables Socialize button when canOptimize is false', () => {
+  it('disables single platform button when canOptimize is false', () => {
     render(<PlatformSelector {...defaultProps} canOptimize={false} />);
-    expect(screen.getByText('Socialize')).toBeDisabled();
+    expect(screen.getByText('Select a Platform')).toBeDisabled();
   });
 
-  it('enables Socialize button when canOptimize is true', () => {
+  it('enables single platform button when canOptimize is true', () => {
     render(
       <PlatformSelector
         {...defaultProps}
@@ -49,7 +52,7 @@ describe('PlatformSelector', () => {
         canOptimize={true}
       />
     );
-    expect(screen.getByText('Socialize')).toBeEnabled();
+    expect(screen.getByText('socialiZe → LinkedIn')).toBeEnabled();
   });
 
   it('shows Processing text when loading', () => {
@@ -64,7 +67,7 @@ describe('PlatformSelector', () => {
     expect(screen.getByText('Processing...')).toBeInTheDocument();
   });
 
-  it('calls onOptimize when Socialize button is clicked', () => {
+  it('calls onOptimize when single platform button is clicked', () => {
     const onOptimize = vi.fn();
     render(
       <PlatformSelector
@@ -75,7 +78,7 @@ describe('PlatformSelector', () => {
       />
     );
 
-    fireEvent.click(screen.getByText('Socialize'));
+    fireEvent.click(screen.getByText('socialiZe → LinkedIn'));
     expect(onOptimize).toHaveBeenCalled();
   });
 });
