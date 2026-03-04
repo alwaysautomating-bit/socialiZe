@@ -127,7 +127,7 @@ export const ResultsDisplay: React.FC<ResultsDisplayProps> = ({
       {/* ── Archive card ───────────────────────────────────────── */}
       <div
         className="border border-ink-black/80"
-        style={{ background: '#F4F0E0' }}
+        style={{ background: 'rgba(244, 240, 224, 0.88)' }}
       >
 
         {/* ── Row 1: Header ──────────────────────────────────── */}

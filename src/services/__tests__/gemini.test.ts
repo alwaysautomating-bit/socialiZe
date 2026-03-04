@@ -50,7 +50,7 @@ describe('optimizeContent', () => {
     expect(result.platform).toBe(Platform.LINKEDIN);
     expect(result.targetTone).toBe(Tone.PROFESSIONAL);
     expect(result.analysis.score).toBe(85);
-    expect(mockFetch).toHaveBeenCalledWith('/api/optimize', {
+    expect(mockFetch).toHaveBeenCalledWith('/.netlify/functions/translate', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ text: 'Test text', platform: Platform.LINKEDIN, tone: Tone.PROFESSIONAL }),
