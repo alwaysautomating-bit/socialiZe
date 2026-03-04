@@ -11,11 +11,11 @@ export const Layout: React.FC<LayoutProps> = ({ children, isAwake = false }) => 
       <div className="max-w-screen-xl mx-auto px-6 py-8">
         <header className="mb-12 flex justify-between items-center opacity-40 hover:opacity-100 transition-opacity ink-dry ink-dry-1">
           <h1 className="flex flex-col items-start gap-1">
-            <div className="h-10 overflow-hidden">
+            <div className="h-16 overflow-hidden">
               <img
                 src="/bigZlogo.png"
                 alt="socialiZe"
-                className="h-[135px] w-auto -mt-[15px]"
+                className="h-[216px] w-auto -mt-[24px]"
               />
             </div>
             <span className="text-[8px] mono uppercase tracking-[0.25em]">copy. paste. post.</span>

@@ -37,8 +37,8 @@ export const PlatformSelector: React.FC<PlatformSelectorProps> = ({
           <p className="text-lg font-black uppercase tracking-[0.12em]">
             Pick your platform. Then
           </p>
-          <div className="h-7 overflow-hidden inline-block">
-            <img src="/bigZlogo.png" alt="socialiZe" className="h-[95px] w-auto -mt-[11px]" />
+          <div className="h-12 overflow-hidden inline-block">
+            <img src="/bigZlogo.png" alt="socialiZe" className="h-[162px] w-auto -mt-[18px]" />
           </div>
           <span className="text-lg font-black">.</span>
         </div>
