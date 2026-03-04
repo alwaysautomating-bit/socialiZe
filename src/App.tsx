@@ -7,13 +7,26 @@ import { useOptimizer } from './hooks/useOptimizer';
 import { useClipboard } from './hooks/useClipboard';
 
 const App: React.FC = () => {
-  const { state, setInputText, setSelectedPlatform, setSelectedTone, handleOptimize, canOptimize } = useOptimizer();
+  const {
+    state,
+    setInputText,
+    setSelectedPlatform,
+    setSelectedTone,
+    setActiveResultIndex,
+    handleOptimize,
+    handleOptimizeAll,
+    canOptimize,
+    canOptimizeAll,
+  } = useOptimizer();
   const { copied, copyToClipboard } = useClipboard();
 
   const handleCopy = () => {
-    if (state.result) {
-      const tags = state.result.hashtags.map(t => t.startsWith('#') ? t : `#${t}`).join(' ');
-      copyToClipboard(`${state.result.content}\n\n${tags}`);
+    const resultToCopy = state.allResults
+      ? (state.allResults[state.activeResultIndex] ?? state.allResults[0])
+      : state.result;
+    if (resultToCopy) {
+      const tags = resultToCopy.hashtags.map(t => t.startsWith('#') ? t : `#${t}`).join(' ');
+      copyToClipboard(`${resultToCopy.content}\n\n${tags}`);
     }
   };
 
@@ -35,13 +48,20 @@ const App: React.FC = () => {
           selectedPlatform={state.selectedPlatform}
           onPlatformSelect={setSelectedPlatform}
           onOptimize={handleOptimize}
+          onOptimizeAll={handleOptimizeAll}
           isLoading={state.isLoading}
+          isLoadingAll={state.isLoadingAll}
           canOptimize={canOptimize}
+          canOptimizeAll={canOptimizeAll}
         />
 
         <ResultsDisplay
           result={state.result}
+          allResults={state.allResults}
+          activeResultIndex={state.activeResultIndex}
+          onSelectResult={setActiveResultIndex}
           isLoading={state.isLoading}
+          isLoadingAll={state.isLoadingAll}
           copied={copied}
           onCopy={handleCopy}
         />

@@ -7,20 +7,41 @@ interface PlatformSelectorProps {
   selectedPlatform: Platform | null;
   onPlatformSelect: (platform: Platform) => void;
   onOptimize: () => void;
+  onOptimizeAll: () => void;
   isLoading: boolean;
+  isLoadingAll: boolean;
   canOptimize: boolean;
+  canOptimizeAll: boolean;
 }
 
 export const PlatformSelector: React.FC<PlatformSelectorProps> = ({
   selectedPlatform,
   onPlatformSelect,
   onOptimize,
+  onOptimizeAll,
   isLoading,
+  isLoadingAll,
   canOptimize,
+  canOptimizeAll,
 }) => {
+  const anyLoading = isLoading || isLoadingAll;
+
   return (
-    <section className="pt-8 flex flex-col items-center gap-12 ink-dry ink-dry-3">
-      <div role="group" aria-label="Social media platforms" className="flex flex-wrap justify-center gap-px">
+    <section className="ink-dry ink-dry-3">
+      {/* Bold section divider */}
+      <div className="border-t-2 border-ink-black mb-10" />
+
+      {/* Editorial instruction callout */}
+      <div className="border-y-2 border-ink-black py-5 mb-10">
+        <p className="text-lg font-black uppercase tracking-[0.12em]">
+          Pick your platform. Then{' '}
+          <span className="text-edit-red italic normal-case font-black">socialiZe</span>
+          <span className="text-ink-black">.</span>
+        </p>
+      </div>
+
+      {/* Platform grid */}
+      <div role="group" aria-label="Social media platforms" className="flex flex-wrap gap-2 mb-10">
         {PLATFORMS.map((platform) => (
           <PlatformCard
             key={platform.id}
@@ -31,20 +52,40 @@ export const PlatformSelector: React.FC<PlatformSelectorProps> = ({
         ))}
       </div>
 
-      <button
-        onClick={onOptimize}
-        disabled={!canOptimize}
-        className={`
-          w-full max-w-sm py-6 text-[11px] font-bold uppercase tracking-[0.5em] transition-all duration-500
-          ${!selectedPlatform
-            ? 'bg-transparent border border-ink-black/10 text-ink-black/30 cursor-not-allowed'
-            : !canOptimize
-              ? 'bg-ink-black/10 text-ink-black/30 cursor-not-allowed'
-              : 'bg-edit-red text-white hover:bg-edit-red/90 shadow-lg shadow-edit-red/10 active:scale-95'}
-        `}
-      >
-        {isLoading ? 'Processing...' : 'Socialize'}
-      </button>
+      {/* Action buttons */}
+      <div className="flex flex-col sm:flex-row gap-3">
+        {/* Single platform button */}
+        <button
+          onClick={onOptimize}
+          disabled={!canOptimize || anyLoading}
+          className={`
+            flex-1 py-5 text-[11px] font-black uppercase tracking-[0.45em] transition-all duration-300 border-2
+            ${canOptimize && !anyLoading
+              ? 'bg-edit-red border-edit-red text-white hover:bg-ink-black hover:border-ink-black active:scale-[0.98]'
+              : 'bg-transparent border-ink-black/15 text-ink-black/25 cursor-not-allowed'}
+          `}
+        >
+          {isLoading
+            ? 'Processing...'
+            : selectedPlatform
+              ? `socialiZe → ${selectedPlatform}`
+              : 'Select a Platform'}
+        </button>
+
+        {/* Generate all platforms button */}
+        <button
+          onClick={onOptimizeAll}
+          disabled={!canOptimizeAll || anyLoading}
+          className={`
+            flex-1 sm:flex-none sm:min-w-[260px] py-5 text-[11px] font-black uppercase tracking-[0.3em] transition-all duration-300 border-2
+            ${canOptimizeAll && !anyLoading
+              ? 'bg-ink-black border-ink-black text-white hover:bg-edit-red hover:border-edit-red active:scale-[0.98]'
+              : 'bg-transparent border-ink-black/15 text-ink-black/25 cursor-not-allowed'}
+          `}
+        >
+          {isLoadingAll ? 'Generating All...' : 'socialiZe Everything'}
+        </button>
+      </div>
     </section>
   );
 };

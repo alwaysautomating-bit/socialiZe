@@ -4,7 +4,11 @@ import { LoadingSkeleton } from './LoadingSkeleton';
 
 interface ResultsDisplayProps {
   result: OptimizationResult | null;
+  allResults: OptimizationResult[] | null;
+  activeResultIndex: number;
+  onSelectResult: (index: number) => void;
   isLoading: boolean;
+  isLoadingAll: boolean;
   copied: boolean;
   onCopy: () => void;
 }
@@ -110,13 +114,23 @@ const CoachSection: React.FC<{ diagnosisType: string }> = ({ diagnosisType }) =>
 /* ── Main ResultsDisplay component ─────────────────────────── */
 export const ResultsDisplay: React.FC<ResultsDisplayProps> = ({
   result,
+  allResults,
+  activeResultIndex,
+  onSelectResult,
   isLoading,
+  isLoadingAll,
   copied,
   onCopy,
 }) => {
-  if (!result && !isLoading) return null;
+  const anyLoading = isLoading || isLoadingAll;
+  const activeResult = allResults
+    ? (allResults[activeResultIndex] ?? allResults[0] ?? null)
+    : result;
 
-  const isLowResonance = result && result.analysis.score < 30;
+  if (!activeResult && !anyLoading) return null;
+
+  const displayResult = anyLoading ? null : activeResult;
+  const isLowResonance = displayResult && displayResult.analysis.score < 30;
 
   return (
     <section
@@ -124,6 +138,42 @@ export const ResultsDisplay: React.FC<ResultsDisplayProps> = ({
       aria-live="polite"
       className="pt-32 animate-in fade-in slide-in-from-bottom-4 duration-1000"
     >
+      {/* Bold section divider */}
+      <div className="border-t-2 border-ink-black mb-8" />
+
+      {/* All-results platform tab strip */}
+      {allResults && !isLoadingAll && (
+        <div className="mb-6">
+          <p className="text-[8px] mono uppercase tracking-[0.3em] opacity-40 mb-3">
+            {allResults.length} platforms generated — select to view
+          </p>
+          <div className="flex flex-wrap gap-2">
+            {allResults.map((r, idx) => (
+              <button
+                key={r.platform}
+                onClick={() => onSelectResult(idx)}
+                className={`
+                  px-4 py-2 text-[9px] font-black uppercase tracking-[0.15em] border-2 transition-all duration-200
+                  ${idx === activeResultIndex
+                    ? 'bg-ink-black border-ink-black text-white'
+                    : 'border-ink-black/20 text-ink-black/50 hover:border-ink-black hover:text-ink-black'}
+                `}
+              >
+                {r.platform}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Loading all header */}
+      {isLoadingAll && (
+        <div className="mb-4">
+          <p className="text-[8px] mono uppercase tracking-[0.3em] opacity-40">
+            Generating all 6 platforms...
+          </p>
+        </div>
+      )}
       {/* ── Archive card ───────────────────────────────────────── */}
       <div
         className="border border-ink-black/80"
@@ -132,20 +182,15 @@ export const ResultsDisplay: React.FC<ResultsDisplayProps> = ({
 
         {/* ── Row 1: Header ──────────────────────────────────── */}
         <div className="flex items-stretch border-b border-ink-black/80">
-          {/* Diagonal corner mark */}
           <div className="px-3 py-3 border-r border-ink-black/80 flex items-center justify-center select-none opacity-40">
             <span className="mono text-base leading-none" aria-hidden="true">/</span>
           </div>
-
-          {/* Platform name */}
           <div className="flex-1 px-5 py-3 flex items-center gap-3">
             <FieldLabel>Platform</FieldLabel>
             <span className="mono text-sm font-bold uppercase tracking-[0.2em]">
-              {result?.platform ?? ''}
+              {displayResult?.platform ?? ''}
             </span>
           </div>
-
-          {/* Institution stamp */}
           <div className="border-l border-ink-black/80 px-5 py-3 flex flex-col justify-center items-end">
             <span className="mono text-[8px] uppercase tracking-[0.3em] opacity-30 leading-tight">
               socialiZe
@@ -160,69 +205,66 @@ export const ResultsDisplay: React.FC<ResultsDisplayProps> = ({
         <div className="flex border-b border-ink-black/80 divide-x divide-ink-black/80">
           <div className="px-5 py-3 min-w-[120px]">
             <FieldLabel>Voice</FieldLabel>
-            <span className="mono text-[11px]">{result?.targetTone ?? ''}</span>
+            <span className="mono text-[11px]">{displayResult?.targetTone ?? ''}</span>
           </div>
           <div className="px-5 py-3 min-w-[110px]">
             <FieldLabel>Resonance</FieldLabel>
             <span className={`mono text-[11px] ${isLowResonance ? 'text-edit-red font-bold' : ''}`}>
-              {result ? `${result.analysis.score}%` : '—'}
+              {displayResult ? `${displayResult.analysis.score}%` : '—'}
             </span>
           </div>
           <div className="px-5 py-3 min-w-[90px]">
             <FieldLabel>Chars</FieldLabel>
             <span className="mono text-[11px]">
-              {result ? result.charCount : '—'}
+              {displayResult ? displayResult.charCount : '—'}
             </span>
           </div>
           <div className="flex-1 px-5 py-3">
             <FieldLabel>Tone read</FieldLabel>
             <span className="mono text-[11px] italic opacity-70">
-              {result ? `"${result.analysis.currentToneDescription}"` : ''}
+              {displayResult ? `"${displayResult.analysis.currentToneDescription}"` : ''}
             </span>
           </div>
         </div>
 
         {/* ── Row 2.5: Coach Section (low resonance only) ────── */}
-        {result && !isLoading && isLowResonance && (
-          <CoachSection diagnosisType={result.analysis.diagnosisType} />
+        {displayResult && !anyLoading && isLowResonance && (
+          <CoachSection diagnosisType={displayResult.analysis.diagnosisType} />
         )}
 
         {/* ── Row 3: Main content ────────────────────────────── */}
         <div className="border-b border-ink-black/80">
-          {isLoading ? (
+          {anyLoading ? (
             <div className="px-6 py-8">
               <LoadingSkeleton />
             </div>
-          ) : result ? (
+          ) : displayResult ? (
             <div className="px-6 py-8">
               <FieldLabel>Content</FieldLabel>
               <div className="serif text-lg leading-8 whitespace-pre-wrap mt-2">
-                {result.content}
+                {displayResult.content}
               </div>
             </div>
           ) : null}
         </div>
 
         {/* ── Row 4: Tags + Drafting notes ───────────────────── */}
-        {result && !isLoading && (
+        {displayResult && !anyLoading && (
           <div className="flex border-b border-ink-black/80 divide-x divide-ink-black/80">
-            {/* Tags */}
             <div className="flex-1 px-5 py-4">
               <FieldLabel>Tags</FieldLabel>
               <div className="flex flex-wrap gap-x-4 gap-y-1 mt-1">
-                {result.hashtags.map((tag, idx) => (
+                {displayResult.hashtags.map((tag, idx) => (
                   <span key={idx} className="mono text-[10px] opacity-60">
                     #{tag.replace('#', '')}
                   </span>
                 ))}
               </div>
             </div>
-
-            {/* Drafting notes */}
             <div className="flex-1 px-5 py-4">
               <FieldLabel>Drafting notes</FieldLabel>
               <ul className="mt-1 space-y-1">
-                {result.analysis.suggestions.map((s, idx) => (
+                {displayResult.analysis.suggestions.map((s, idx) => (
                   <li key={idx} className="mono text-[10px] opacity-55 leading-relaxed flex gap-2">
                     <span className="opacity-40 shrink-0">/0{idx + 1}</span>
                     <span>{s}</span>
@@ -234,25 +276,20 @@ export const ResultsDisplay: React.FC<ResultsDisplayProps> = ({
         )}
 
         {/* ── Row 5: Logic + Copy ────────────────────────────── */}
-        {result && !isLoading && (
+        {displayResult && !anyLoading && (
           <div className="flex items-stretch divide-x divide-ink-black/80">
-            {/* Logic / rationale */}
             <div className="flex-1 px-5 py-4">
               <FieldLabel>Logic</FieldLabel>
               <p className="mono text-[10px] opacity-50 leading-relaxed mt-1 max-w-lg">
-                {result.rationale}
+                {displayResult.rationale}
               </p>
             </div>
-
-            {/* Feedback */}
             <div className="flex-1 px-5 py-4 hidden md:block">
               <FieldLabel>Feedback</FieldLabel>
               <p className="mono text-[10px] opacity-50 leading-relaxed mt-1">
-                {result.analysis.feedback}
+                {displayResult.analysis.feedback}
               </p>
             </div>
-
-            {/* Copy action */}
             <div className="px-5 py-4 flex items-center justify-center">
               <button
                 onClick={onCopy}

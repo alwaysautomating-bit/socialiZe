@@ -36,6 +36,23 @@ function validateResponse(data: unknown): asserts data is Omit<OptimizationResul
   }
 }
 
+export const optimizeAllPlatforms = async (
+  text: string,
+  targetTone: Tone
+): Promise<OptimizationResult[]> => {
+  const platforms = Object.values(Platform);
+  const settled = await Promise.allSettled(
+    platforms.map(platform => optimizeContent(text, platform, targetTone))
+  );
+  const results = settled
+    .filter((r): r is PromiseFulfilledResult<OptimizationResult> => r.status === 'fulfilled')
+    .map(r => r.value);
+  if (results.length === 0) {
+    throw createAppError(ErrorCode.UNKNOWN_ERROR, 'All platform optimizations failed.');
+  }
+  return results;
+};
+
 export const optimizeContent = async (
   text: string,
   platform: Platform,
