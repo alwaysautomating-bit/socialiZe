@@ -177,9 +177,6 @@ export const ResultsDisplay: React.FC<ResultsDisplayProps> = ({
       aria-live="polite"
       className="pt-24 animate-in fade-in slide-in-from-bottom-4 duration-1000"
     >
-      {/* Bold section divider */}
-      <div className="border-t-2 border-ink-black mb-8" />
-
       {/* All-results platform tab strip */}
       {allResults && !isLoadingAll && (
         <div className="mb-6">

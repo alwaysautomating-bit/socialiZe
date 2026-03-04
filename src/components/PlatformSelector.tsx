@@ -28,20 +28,19 @@ export const PlatformSelector: React.FC<PlatformSelectorProps> = ({
 
   return (
     <section className="ink-dry ink-dry-3">
-      {/* Bold section divider */}
-      <div className="border-t-2 border-ink-black mb-10" />
+      {/* Instruction label — plain text, no border box */}
+      <p className="text-sm font-black uppercase tracking-[0.14em] opacity-40 mb-6">
+        Pick your platform. Then{' '}
+        <span className="text-edit-red italic normal-case">socialiZe</span>
+        .
+      </p>
 
-      {/* Editorial instruction callout */}
-      <div className="border-y-2 border-ink-black py-5 mb-10">
-        <p className="text-lg font-black uppercase tracking-[0.12em]">
-          Pick your platform. Then{' '}
-          <span className="text-edit-red italic normal-case font-black">socialiZe</span>
-          <span className="text-ink-black">.</span>
-        </p>
-      </div>
-
-      {/* Platform grid */}
-      <div role="group" aria-label="Social media platforms" className="flex flex-wrap gap-2 mb-10">
+      {/* Platform grid — 3 columns × 2 rows */}
+      <div
+        role="group"
+        aria-label="Social media platforms"
+        className="grid grid-cols-3 gap-3 mb-8"
+      >
         {PLATFORMS.map((platform) => (
           <PlatformCard
             key={platform.id}
