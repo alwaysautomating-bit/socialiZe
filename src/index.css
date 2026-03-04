@@ -4,11 +4,7 @@
 
 body {
   font-family: 'Inter', sans-serif;
-  background-image: url('/paperbackground.PNG');
-  background-size: cover;
-  background-position: top left;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
+  background-color: #FDFCF0;
   color: #1A1A1A;
   -webkit-font-smoothing: antialiased;
 }
