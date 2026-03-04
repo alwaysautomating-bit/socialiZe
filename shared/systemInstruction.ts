@@ -87,4 +87,10 @@ Return a JSON object with:
     - score: 0-100 (how well the original input matched the target tone).
     - currentToneDescription: Short descriptive phrase of original tone.
     - feedback: A brief, quiet assessment.
-    - suggestions: Array of 2 specific styling notes to improve future drafts.`;
+    - suggestions: Array of 2 specific styling notes to improve future drafts.
+    - diagnosisType: When score is below 30, identify the PRIMARY reason the input is weak. Use exactly one of these values:
+        - "too_general": Input gives generic advice or observations without a specific angle, unique point of view, or concrete detail. Could have been written by anyone about anything.
+        - "no_audience": Input doesn't define or imply who it's for. Audience is vague, assumed, or missing entirely.
+        - "missing_outcome": Input doesn't communicate what the reader should do, feel, or think differently after engaging with it. No clear transformation or takeaway.
+        - "too_broad": Input tries to cover multiple ideas, themes, or points at once. Lacks a single focused core message.
+      When score is 30 or above, set diagnosisType to "" (empty string).`;

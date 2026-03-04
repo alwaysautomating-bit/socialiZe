@@ -21,6 +21,7 @@ export interface ToneAnalysis {
   currentToneDescription: string;
   feedback: string;
   suggestions: string[];
+  diagnosisType: string;
 }
 
 export interface OptimizationResult {
