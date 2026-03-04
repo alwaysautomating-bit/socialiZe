@@ -28,24 +28,20 @@ export const PlatformSelector: React.FC<PlatformSelectorProps> = ({
 
   return (
     <section className="ink-dry ink-dry-3">
-      {/* Bold section divider */}
-      <div className="border-t-2 border-ink-black mb-10" />
-
       {/* Editorial instruction callout */}
-      <div className="border-y-2 border-ink-black py-5 mb-10">
+      <div className="py-5 mb-10">
         <div className="flex items-center gap-2">
           <p className="text-lg font-black uppercase tracking-[0.12em]">
             Pick your platform. Then
           </p>
-          <div className="h-12 overflow-hidden inline-block">
+          <div className="h-12 flex-shrink-0 overflow-hidden">
             <img src="/bigZlogo.png" alt="socialiZe" className="h-[162px] w-auto -mt-[18px]" />
           </div>
-          <span className="text-lg font-black">.</span>
         </div>
       </div>
 
-      {/* Platform grid */}
-      <div role="group" aria-label="Social media platforms" className="flex flex-wrap gap-2 mb-10">
+      {/* Platform grid — 2 cols on mobile, 3 cols on sm+ */}
+      <div role="group" aria-label="Social media platforms" className="grid grid-cols-2 sm:grid-cols-3 gap-2 mb-10">
         {PLATFORMS.map((platform) => (
           <PlatformCard
             key={platform.id}
