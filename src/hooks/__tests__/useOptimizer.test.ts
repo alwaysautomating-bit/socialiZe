@@ -129,6 +129,7 @@ describe('useOptimizer', () => {
         currentToneDescription: 'Casual',
         feedback: 'Nice',
         suggestions: ['Improve'],
+        diagnosisType: '',
       },
     };
     vi.mocked(optimizeContent).mockResolvedValueOnce(mockResult);

@@ -37,6 +37,7 @@ describe('App integration', () => {
         currentToneDescription: 'Confident and clear',
         feedback: 'Strong opening, good flow.',
         suggestions: ['Add a question at the end', 'Break into shorter paragraphs'],
+        diagnosisType: '',
       },
     };
     vi.mocked(optimizeContent).mockResolvedValueOnce(mockResult);

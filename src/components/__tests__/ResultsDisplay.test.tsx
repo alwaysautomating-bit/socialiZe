@@ -15,6 +15,7 @@ const mockResult: OptimizationResult = {
     currentToneDescription: 'Casual and direct',
     feedback: 'Good foundation, needs polish.',
     suggestions: ['Use more formal language', 'Add a call to action'],
+    diagnosisType: '',
   },
 };
 
