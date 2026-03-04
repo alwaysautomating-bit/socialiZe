@@ -10,7 +10,7 @@ export const Layout: React.FC<LayoutProps> = ({ children, isAwake = false }) => 
     <div className="min-h-screen selection:bg-edit-red-light selection:text-edit-red">
       <div className="max-w-screen-xl mx-auto px-6 py-8">
         <header className="mb-12 flex justify-between items-center opacity-40 hover:opacity-100 transition-opacity ink-dry ink-dry-1">
-          <h1 className="flex flex-col items-start gap-1">
+          <h1 className="inline-flex flex-col items-start">
             <div className="h-16 overflow-hidden">
               <img
                 src="/bigZlogo.png"
@@ -18,7 +18,7 @@ export const Layout: React.FC<LayoutProps> = ({ children, isAwake = false }) => 
                 className="h-[216px] w-auto -mt-[24px]"
               />
             </div>
-            <span className="text-[8px] mono uppercase tracking-[0.25em]">copy. paste. post.</span>
+            <span className="text-[8px] mono uppercase tracking-[0.25em] mt-[6px]">copy. paste. post.</span>
           </h1>
           <div className="text-[9px] mono uppercase tracking-widest">
             Blue Dot Tech / v1.0
