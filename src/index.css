@@ -43,6 +43,20 @@ body {
   .ink-dry-4 { animation-delay: 450ms; }
 }
 
+/* Red pen underline animation */
+@media (prefers-reduced-motion: no-preference) {
+  @keyframes pen-draw-fade {
+    0%   { width: 0;    opacity: 1; }
+    35%  { width: 100%; opacity: 1; }
+    80%  { width: 100%; opacity: 1; }
+    100% { width: 100%; opacity: 0; }
+  }
+
+  .pen-strike {
+    animation: pen-draw-fade 900ms ease-out forwards;
+  }
+}
+
 /* Focus styles: visible for keyboard, hidden for mouse */
 *:focus:not(:focus-visible) {
   outline: none;
