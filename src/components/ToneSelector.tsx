@@ -16,7 +16,7 @@ export const ToneSelector: React.FC<ToneSelectorProps> = ({ selectedTone, onSele
           id="tone-select"
           value={selectedTone}
           onChange={(e) => onSelect(e.target.value as Tone)}
-          className="appearance-none bg-transparent border-none pr-4 focus:outline-none cursor-pointer font-bold text-ink-black"
+          className="appearance-none bg-transparent border-none pr-4 min-w-max focus:outline-none cursor-pointer font-bold text-ink-black"
         >
           {TONES.map((tone) => (
             <option key={tone.id} value={tone.id} className="bg-[#FDFCF0]">

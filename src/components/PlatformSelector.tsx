@@ -33,11 +33,15 @@ export const PlatformSelector: React.FC<PlatformSelectorProps> = ({
 
       {/* Editorial instruction callout */}
       <div className="border-y-2 border-ink-black py-5 mb-10">
-        <p className="text-lg font-black uppercase tracking-[0.12em]">
-          Pick your platform. Then{' '}
-          <span className="text-edit-red italic normal-case font-black">socialiZe</span>
-          <span className="text-ink-black">.</span>
-        </p>
+        <div className="flex items-center gap-2">
+          <p className="text-lg font-black uppercase tracking-[0.12em]">
+            Pick your platform. Then
+          </p>
+          <div className="h-7 overflow-hidden inline-block">
+            <img src="/bigZlogo.png" alt="socialiZe" className="h-[95px] w-auto -mt-[11px]" />
+          </div>
+          <span className="text-lg font-black">.</span>
+        </div>
       </div>
 
       {/* Platform grid */}
