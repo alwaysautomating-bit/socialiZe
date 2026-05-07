@@ -7,9 +7,10 @@ export default defineConfig({
     port: 3000,
     host: '0.0.0.0',
     proxy: {
-      '/.netlify/functions': {
+      '/api': {
         target: 'http://localhost:9999',
         changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api\/translate$/, '/.netlify/functions/translate'),
       },
     },
   },

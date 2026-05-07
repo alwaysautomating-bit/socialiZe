@@ -59,7 +59,7 @@ export const optimizeContent = async (
   targetTone: Tone
 ): Promise<OptimizationResult> => {
   try {
-    const response = await fetch('/.netlify/functions/translate', {
+    const response = await fetch('/api/translate', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ text, platform, tone: targetTone }),

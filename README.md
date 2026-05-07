@@ -15,7 +15,6 @@ Built with React 19, TypeScript, Vite 6, Tailwind CSS 3, and Google Gemini AI.
    ```
    npm install
    ```
-
 2. Create a `.env` file in the project root:
    ```
    GEMINI_API_KEY=your_api_key_here
@@ -23,37 +22,51 @@ Built with React 19, TypeScript, Vite 6, Tailwind CSS 3, and Google Gemini AI.
 
 ## Development
 
-Start both the Vite dev server (port 3000) and the Express API server (port 3001):
+Run the Vite app on port 3000 and the local serverless function bridge on port 9999:
 
 ```
 npm run dev
 ```
 
-The Vite dev server proxies `/api` requests to the Express server automatically.
+The client calls `/api/translate`. During local development, Vite proxies that route to `netlify/functions/translate.ts`.
 
-## Testing
+`npm run preview` is static-only. It does not run the API endpoint, so `/api/translate` will 404 there.
+
+The older `server/` Express backend has been removed because it was no longer used by the current Vite + serverless deployment path.
+
+## Validation
 
 ```
+npm run typecheck
 npm test
-```
-
-## Production Build
-
-Build the client:
-
-```
 npm run build
 ```
 
-Start the production server (serves static files + API):
+## Production Deployment
 
-```
-npm start
-```
+Vercel serves the static app from `dist` and the API from `api/translate.ts`.
+
+Required environment variables:
+
+- `GEMINI_API_KEY`
+
+Recommended Vercel settings:
+
+- Framework preset: `Vite`
+- Build command: `npm run build`
+- Output directory: `dist`
+- Node.js version: 18+ or 20+
 
 ## Architecture
 
-- `src/` — React client (Vite + TypeScript)
-- `server/` — Express API server (proxies Gemini calls, keeps API key server-side)
-- `shared/` — Code shared between client and server (system instruction, response schema)
-- `public/` — Static assets (favicon, OG image)
+- `src/` - React client
+- `api/` - Vercel serverless API endpoints
+- `netlify/functions/` - local development bridge for the Gemini endpoint
+- `shared/` - shared prompt and schema definitions
+- `public/` - static assets
+
+## Cleanup Notes
+
+- Required env var is `GEMINI_API_KEY` in `.env.example`, local code, and Vercel.
+- `netlify-cli` is still used only for local development. Keeping it is the smallest safe option for now.
+- If you later want one deployment runtime for both local and cloud, switching to `vercel dev` would be reasonable, but that is not necessary for this cleanup.
